@@ -145,15 +145,19 @@
     //    - 将href设置为javascript:;
     $('#logout').on('click',function(){
       // 显示模态框
-      $('#myModak').modal('show');
+      $('#myModal').modal('show');
     });
 
 
 
     $('#quit').on('click',function(){
+  
       user.logout({
         callback:function(res){
+          // console.log(res);
           // 检测
+          
+          
           if(res.code===200){
             location.href='./login.html';
           }
@@ -163,7 +167,16 @@
 
     // 用户信息展示
 
-    user
+    user.getInfo({
+      callback:function(res){
+        if(res.code===200){
+          var data = res.data;
+          $('.user_info img').prop('src',data.user_pic)
+          .next().text('欢迎  '+data.nickname);
+          $('.user_center_link img').prop('src',data.user_pic);
+        }
+      }
+    });
 
 
 
